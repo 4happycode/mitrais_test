@@ -1,0 +1,753 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Sample Form</title>
+
+    <link href="//cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/css/bootstrap.css" rel="stylesheet"/>
+    <link href="//cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.6.4/css/bootstrap-datepicker3.css" rel="stylesheet"/>
+
+    <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/2.1.3/jquery.js"></script>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/js/bootstrap.js"></script>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.6.4/js/bootstrap-datepicker.js"></script>
+
+    <style>
+        /* Hide prev/next buttons and month name*/
+        .datepicker-days>table>thead>tr>th.prev,
+        .datepicker-days>table>thead>tr>th.datepicker-switch,
+        .datepicker-days>table>thead>tr>th.next {
+        display: none;
+        }
+
+        /* Hide days of previous month */
+        td.old.day{
+        visibility: hidden;
+        }
+
+        /* Hide days of next month */
+        td.new.day{
+        display: none;
+        }
+    </style>
+    <style>
+        .btn-purple,
+        .btn-purple:active,
+        .btn-purple:visited {
+        background-color: #a000a0 !important;
+        color: #FFF;
+        }
+
+        .btn-purple:hover {
+        color: #FFF;
+        background-color: #800080 !important;
+        transition: all 1s ease;
+        -webkit-transition: all 1s ease;
+        -moz-transition: all 1s ease;
+        -o-transition: all 1s ease;
+        -ms-transition: all 1s ease;
+        }
+    </style>
+    <style>
+        /* label.error.fail-alert{ 
+        background: #c51244 !important;
+        padding: 10px !important;
+        border-radius: 0 !important;
+        position: relative; 
+        display: inline-block !important;
+        box-shadow: 1px 1px 1px #aaaaaa;
+        margin-top: 10px;
+        }
+        label.error.fail-alert:before{ 
+        content: ''; 
+        width: 0; 
+        height: 0; 
+        border-left: 4px solid transparent;
+        border-right: 10px solid transparent;
+        border-bottom: 10px solid #c51244;
+        position: absolute; 
+        top: -4px; 
+        } */
+        /* .c-label:after{
+        color: #c51244 !important;
+        }
+        .c-error input, .c-error select, .c-error .c-choice-option{ 
+        background: #fff0f4; 
+        color: #c51244;
+        }
+        .c-error input, .c-error select{ 
+        border: 1px solid #c51244 !important; 
+        } */
+        /* label {
+            overflow: unset;
+        } */
+        label {
+  display: block;
+  margin-bottom: 5px;
+}
+        
+        label.error {
+            transition: unset;
+            border-collapse: unset;
+            transform-style: unset;
+            text-transform: capitalize;
+            transition: none;
+            transition-property: none;
+            color: red;
+            font-size: 1.5rem;
+            /* display: relative; */
+            display: none;
+            /* margin-top: 5px; */
+            top: -60px;
+            /* margin-bottom: 5px; */
+            float: right;
+            position: absolute;
+            /* top: -40px; */
+            
+            /* nav-right: inherit; */
+        }
+
+        label.error.fail-alert {
+            place-content: top;
+            border: 2px solid red;
+            border-radius: 4px;
+            line-height: 1;
+            padding: 2px 0 6px 6px;
+            background: #ffe6eb;
+            position: relative;
+        }
+
+        label.error.fail-alert:before{ 
+            content: ''; 
+            width: 0; 
+            height: 0; 
+            border-left: 10px solid transparent;
+            border-right: 10px solid transparent;
+            border-top: 10px solid #c51244;
+            position: absolute; 
+            /* left: 70px; */
+            text-align: center;
+            left: 50%;
+            right: 50%;
+            top: 24px; 
+        }
+
+        input.valid.success-alert {
+            border: 2px solid #4CAF50;
+            color: green;
+        }
+
+        /* input.error, textarea.error {
+            border: 1px dashed red;
+            font-weight: 300;
+            color: red;
+        } */
+    </style>
+
+    <script>
+        $(function() { 
+
+            $(document).ready(function() {
+                var dateOpt = {
+                format: 'dd',
+                maxViewMode: 0
+                };
+                
+                $("#year").datepicker({
+                    format: "yyyy",
+                    viewMode: "years",
+                    minViewMode: "years"
+                }).on('changeDate', function(e) {
+                    var month = $('#month').datepicker('getDate');
+                    if( !month ){
+                        month = new Date();
+                    }
+                    dateOpt.defaultViewDate = {
+                        year: e.date.getFullYear(),
+                        month: month.getMonth(),
+                        day: 1
+                    };
+
+                    // Reset date datepicker
+                    $('#date').datepicker('destroy');
+                    // Re-init with defaultViewDate option
+                    $('#date').datepicker(dateOpt);
+                });
+            
+                $("#month").datepicker({
+                    format: "mm",
+                    viewMode: "months",
+                    minViewMode: "months",
+                    maxViewMode: 0
+                }).on('changeDate', function(e) {
+                    var year = $('#year').datepicker('getDate');
+                    if( !year ){
+                        year = new Date();
+                    }
+                    dateOpt.defaultViewDate = {
+                        year: year.getFullYear(),
+                        month: e.date.getMonth(),
+                        day: 1
+                    };
+                    $('#date').datepicker('destroy');
+                    $('#date').datepicker(dateOpt);
+                });
+
+                $("#date").datepicker(dateOpt)
+            });
+
+        });
+    </script>
+    <!-- <script>
+        $(document).ready(function(){
+            $("#submitBtn").click(function(){   
+
+                var thisyear = $('#year').val(); // Modify me
+                var thismonth = $('#month').val(); // Modify me
+                var thisday = $('#date').val(); // Modify me
+                var dateofbirth = thisyear + '-' + thismonth + '-' + thisday;
+                // var dateofbirth = thismonth + thisday + thisyear;
+                $('input[name="datebirth"]').val(dateofbirth);
+
+                $('input[name="month"]').remove();
+                $('input[name="year"]').remove();
+                $('input[name="day"]').remove();
+
+
+                $("#myForm").valid(); 
+                // $("#myForm").serialize().submit(); // Submit the form
+                $("#myForm").submit(
+                    // function(e){
+                    //     e.preventDefault();
+                    //     $year = $('#year');
+                    //     $year.remove();
+                    // }
+                ); // Submit the form
+
+                // url = $form.attr( "action" );
+                // da = {'email':'on'}
+                // Data: JSON.stringify({ 'email': 'on' }),
+                // console.log(da)
+                // $.ajax('http://localhost:8000/regist', {
+                //     data: {'email':'on'},
+                //     contentType : 'application/json',
+                //     DataType: "json",
+                //     type : 'POST',
+                // });
+            });
+        });
+    </script> -->
+
+    <!-- <script>
+        function onSubmit( form ){
+        console.log( data );
+        // var data = JSON.stringify( $(form).serializeArray() ); //  <-----------
+        // url = $form.attr( "action" );
+        $.ajax('http://localhost:8000/regist', {
+            Data: JSON.stringify({ 'email': 'on' }),
+            // data:{
+            // 'email': 'title',
+            // },
+            // body:{
+            // 'email': 'title',
+            // },
+            // data: {'email':'1111111111111'},
+            // contentType : 'application/json',
+            DataType: "json",
+            type : 'POST',
+        });
+
+        console.log( data );
+        return false; //don't submit
+        }
+    </script> -->
+
+    <!-- <script>
+        // Attach a submit handler to the form
+        $( "#submitBtn" ).submit(function( event ) {
+         
+          // Stop form from submitting normally
+          event.preventDefault();
+         
+          // Get some values from elements on the page:
+          var $form = $( this ),
+            term = $form.find( "input[name='phone']" ).val(),
+            url = $form.attr( "action" );
+         
+          // Send the data using post
+          var posting = $.post( url, { s: term } );
+         
+          // Put the results in a div
+        //   posting.done(function( data ) {
+        //     var content = $( data ).find( "#content" );
+        //     $( "#result" ).empty().append( content );
+        //   });
+        console.log( posting );
+        console.log( term );
+        console.log( url );
+        });
+        </script> -->
+    
+    <!-- <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" rel="stylesheet" />
+    <script>
+        $(document).ready(function () {
+            $('btn btn-purple btn-lg btn-block').click(function (e) {
+            e.preventDefault();
+            // var name = $('#name').val();
+            var email = $('#email').val();
+            // var message = $('#message').val();
+            console.log(email);
+            console.log("email----");
+            $.ajax
+                ({
+                type: "POST",
+                url: "/regist",
+                data: { "email": email},
+                success: function (result) {
+
+                    // $('.result').html(data);
+                    // $('#contactform')[0].reset();
+                }
+                });
+            });
+        });
+    </script> -->
+    <!-- <script>
+        $(document).ready(function(){
+		$('#send').click(function(){
+            // $("#myForm").valid(); 
+			// event.preventDefault();
+            var email=$('#email').val();
+            var firstname=$('#firstname').val();
+            var lastname=$('#lastname').val();
+            var phone=$('#phone').val();
+
+            'use strict'
+
+            // Fetch all the forms we want to apply custom Bootstrap validation styles to
+            var forms = document.querySelectorAll('.needs-validation')
+            console.log('=======================')
+            console.log(forms)
+
+            // Loop over them and prevent submission
+            Array.prototype.slice.call(forms)
+                .forEach(function (form) {
+                form.addEventListener('submit', function (event) {
+                    if (!form.checkValidity()) {
+                    event.preventDefault()
+                    event.stopPropagation()
+                    console.log('000000000000000')
+                    }
+
+                    form.classList.add('was-validated')
+                }, false)
+                })
+
+		});
+	});
+    </script> -->
+    <!-- <script src="http://code.jquery.com/jquery-latest.js"></script>
+    <script src="//ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"> </script> -->
+    <script src="http://ajax.aspnetcdn.com/ajax/jquery.validate/1.11.1/jquery.validate.min.js"></script>
+    <!-- <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script> -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.17.0/jquery.validate.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.17.0/additional-methods.min.js"></script>
+    <!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.0/jquery.min.js"></script> -->
+    <!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.19.0/jquery.validate.min.js"></script> -->
+    <script>
+        $(document).ready(function(){
+            // $("#email").keydown(function(){
+            $("#phone").change(function(){
+
+                var email_checked = $("#myForm").validate(
+                    {
+                        errorClass: "error fail-alert",
+                        validClass: "valid success-alert",
+                        rules: {
+                            phone : {
+                                required: true,
+                                minlength: 11,
+                                // maxlength: 13,
+                                number:true,
+                                pattern: /^[0][8][0-9]{6}[0-9]{3,5}$/,
+                            },
+                        },
+                        messages : {
+                            phone: {
+                                required:"Please enter valid indonesian phone number",
+                                number: "Please enter your phone number as a numerical value",
+                                min: "You must be at least 11",
+                                pattern: "Please enter valid indonesian phone number starts with 08xxxxxx"
+                            },
+                        }
+                    },
+
+                );
+                console.log(')()()()()')
+                console.log(email_checked)
+                 
+                // your logic here
+                console.log('_---__-----__---');
+                console.log('999999999999999999999');
+                if ($('input[name="phone"]').validate()) {
+                    console.log('masuk if');
+                    var phones = $("#phone").val();
+                    $.ajax({
+                        type: "GET",
+                        url: "/check_phone",
+                        // data: { email:email, firstname:firstname, lastname:lastname, phone:phone},	
+                        // data: JSON.stringify({ email:$("#email").val()}),
+                        data: {q : phones},
+                        // dataType: "json",
+                        // contentType : 'application/json',
+                        success: function(result){
+                            console.log(result);
+                            if (result.detail != true){
+                                alert("Phone already exists");
+                                
+                                jQuery.validator.addMethod("notEqualTo", function(value, element, param) {
+                                    return this.optional(element) || value != param;
+                                    }, "Please specify a different (non-default) value");
+                                $("#myForm").validate(
+                                    {
+                                        // errorClass: "error fail-alert",
+                                        // validClass: "valid success-alert",
+                                        rules: {
+                                            phone : {
+                                                notEqualTo: "081273778628"
+                                            },
+                                        },
+                                        messages : {
+                                            phone: {
+                                                notEqualTo: "Phone sudah ada",
+                                            },
+                                        }
+                                    },
+
+                                );
+
+                                
+                            }
+                                            }
+                    });
+                }
+                // $.ajax({
+                //         type: "GET",
+                //         url: "/check_phone",
+                //         // data: { email:email, firstname:firstname, lastname:lastname, phone:phone},	
+                //         // data: JSON.stringify({ email:$("#email").val()}),
+                //         data: {q : $("#phone").val()},
+                //         // dataType: "json",
+                //         // contentType : 'application/json',
+                //         success: function(result){
+                //             console.log(result);
+                //             if (result.detail != true){
+                //                 alert(result.detail)
+                //             }
+                //                             }
+                //     });
+            });
+        });
+    </script>
+    <script>
+        $(document).ready(function(){
+            // $("#email").keydown(function(){
+            $("#email").change(function(){
+
+                var email_checked = $("#myForm").validate(
+                    {
+                        errorClass: "error fail-alert",
+                        validClass: "valid success-alert",
+                        rules: {
+                            email : {
+                                required: true,
+                                number:true,
+                                pattern: /^[0][8][0-9]{6}[0-9]{3,5}$/,
+                            },
+                        },
+                        messages : {
+                            email: {
+                                required:"Please enter valid indonesian phone number",
+                                number: "Please enter your phone number as a numerical value",
+                                pattern: "Please enter valid indonesian phone number starts with 08xxxxxx"
+                            },
+                        }
+                    },
+
+                );
+                 
+                // your logic here
+                if ($('input[name="email"]').validate()) {
+                    var emails = $("#email").val();
+                    $.ajax({
+                        type: "GET",
+                        url: "/check_email",
+                        data: {q : emails},
+                        success: function(result){
+                            console.log(result);
+                            if (result.detail != true){
+                                alert("Email already exists");
+                                
+                                jQuery.validator.addMethod("notEqualTo", function(value, element, param) {
+                                    return this.optional(element) || value != param;
+                                    }, "Please specify a different value");
+                                $("#myForm").validate(
+                                    {
+                                        errorClass: "error fail-alert",
+                                        validClass: "valid success-alert",
+                                        rules: {
+                                            email : {
+                                                notEqualTo: result.data
+                                            },
+                                        },
+                                        messages : {
+                                            email: {
+                                                notEqualTo: "Email sudah ada",
+                                            },
+                                        }
+                                    },
+
+                                );
+
+                                
+                            }
+                                            }
+                    });
+                }
+            });
+        });
+    </script>
+    <script>
+       $(document).ready(function(){
+		$('#send').click(function(){
+
+            $("#myForm").validate(
+                {
+                    errorClass: "error fail-alert",
+                    validClass: "valid success-alert",
+                    rules: {
+                        phone : {
+                            required: true,
+                            minlength: 11,
+                            // maxlength: 13,
+                            number:true,
+                            pattern: /^[0][8][0-9]{6}[0-9]{3,5}$/,
+                            notEqual: "081273778628",
+                        },
+                    },
+                    messages : {
+                        phone: {
+                            required:"Please enter valid indonesian phone number",
+                            number: "Please enter your phone number as a numerical value",
+                            min: "You must be at least 11",
+                            pattern: "Please enter valid indonesian phone number starts with 08xxxxxx",
+                            notEqual: "Phone sudah ada"
+                        },
+                    }
+                },
+
+            ); 
+            $("#document").on("change propertychange keyup input paste click", 'selector', function(e){
+            //   dosomething();
+            //   console.log(e);
+              console.log('999999999999999999999');
+            });
+			// event.preventDefault();
+            // var isValid = $(e.target).parents('form').isValid();
+            // if(!isValid) {
+            // e.preventDefault(); //prevent the default action
+            // }
+            var email=$('#email').val();
+            var firstname=$('#firstname').val();
+            var lastname=$('#lastname').val();
+            var phone=$('#phone').val();
+
+            var thisyear = $('#year').val(); // Modify me
+            var thismonth = $('#month').val(); // Modify me
+            var thisday = $('#date').val(); // Modify me
+            
+            var datebirth = thisyear + '-' + thismonth + '-' + thisday;
+            var gender=$("input[name=gender]:checked").val();
+
+            // var data1 = JSON.stringify( $("#myForm").serializeArray() );
+            // var data2 =$("#myForm").serialize();
+
+            console.log(email);
+            console.log(firstname);
+            console.log(lastname);
+            console.log(phone);
+
+            if ($("#myForm").validate().form()) {
+            // if ($("#myForm").checkValidity()) {
+                // do ajax stuff
+                console.log('validation');
+                $.ajax({
+                    type: "POST",
+                    url: "/regist",
+                    // data: { email:email, firstname:firstname, lastname:lastname, phone:phone},	
+                    data: JSON.stringify({ 
+                        email:email, firstname:firstname, lastname:lastname, phone:phone,
+                        datebirth:datebirth, gender:gender
+                    }),
+                    dataType: "json",
+                    contentType : 'application/json',
+                    success: function(result){
+                        console.log(result);
+                        var detail = result.detail;
+                        if ( detail == 'saved' ){
+                            console.log('keren');
+                            $('.result').html(result);
+                            $('#success__para').html("You data will be saved");
+                            $('#a').show();
+                            $("#myForm input").prop("disabled", true);
+                            $("#myForm :input").prop("disabled", true);
+                            // $('#myForm').prop('disabled', "disabled");
+                        }
+                        // else{
+                        //     alert("Email already exists");
+                        //     return false;
+                        //     $('#email').parent().removeClass();
+                        //     $('#email').parent().addClass("form_error");
+                        //     $('#email').siblings("span").text('Sorry... Email already taken');
+                        // }
+                        console.log(detail);
+                        
+                                        }
+                });
+            }
+
+			// $.ajax({
+			//     type: "POST",
+			//     url: "/regist",
+			//     // data: { email:email, firstname:firstname, lastname:lastname, phone:phone},	
+            //     data: JSON.stringify({ email:email, firstname:firstname, lastname:lastname, phone:phone}),
+			//     dataType: "json",
+            //     contentType : 'application/json',
+			//     success: function(result){
+			//         			    }
+			// });
+		});
+	});
+    </script>
+
+    <!-- <script type="text/javascript">
+
+        function submitdata()
+        {
+         var name=document.getElementById( "email" );
+         var firstname=document.getElementById( "firstname" );
+         var lastname=document.getElementById( "lastname" );
+         var phone=document.getElementById( "phone" );
+        //  var course=document.getElementById( "course_of_user" );
+        console.log(phone);
+        
+         $.ajax({
+          type: 'post',
+        //   url: 'http://localhost:8000/regist',
+          url: 'regist',
+          data: {
+           email:email,
+           lastname:lastname,
+           firstname:firstname,
+           phone:phone
+          },
+          success: function (response) {
+           $('#success__para').html("You data will be saved");
+          }
+         });
+            
+         return false;
+        }
+        
+        </script> -->
+        
+</head>
+<body>
+    <!-- {{ request }} -->
+    <br>
+    <div class="container">
+        <!-- <form onsubmit='return onSubmit(this)' action="/regist" method="POST" id="myForm"> -->
+        <!-- <form id="myForm" onsubmit='return false' method="post" action="/regist"> -->
+        <!-- <form method="post" action="" id="contactform"> -->
+        <form method="POST" onsubmit="return false" id="myForm" class="needs-validation" novalidate>
+        <!-- <form id="myForm" method="post" action="/regist"> -->
+            <h1> Registration </h1>
+            <!-- pattern="[0-9]{3}-[0-9]{2}-[0-9]{3}" -->
+            <!-- <span>Phone</span><br> -->
+            <div class="form-group">
+                <input type="tel" class="form-control" id="phone" name="phone" aria-describedby="phoneHelp" pattern="[0][8][0-9]{6}[0-9]{3,5}" maxlength="13" minlength="11" placeholder="Mobile number" required>
+            </div>
+            <span></span><br>
+            <div class="form-group">
+                <input type="text" class="form-control" id="firstname" name="firstname" placeholder="First name" required="" oninvalid="this.setCustomValidity('Please enter first name')" oninput="setCustomValidity('')">
+            </div>
+            <span></span><br>
+            <div class="form-group">
+                <input type="text" class="form-control" id="lastname" name="lastname" placeholder="Last name" required oninvalid="this.setCustomValidity('Please enter last name')" oninput="setCustomValidity('')">
+            </div>
+
+            <span> Date of Birth </span><br>
+            <div class="form-group col-md-1 row">
+                <input type="text" id="month" name="month" class="form-control" placeholder="Month">
+            </div>
+            <div class="form-group col-md-1">
+                <input type="text" id="date" name="day" class="form-control" placeholder="Date">
+            </div>
+            <div class="form-group row col-md-1">
+                <input type="text" id="year" name="year" class="form-control" placeholder="Year">
+            </div>
+            <!-- <div class="form-group col-md-1 row">
+                <input type="hidden" name="ttl"/>
+            </div> -->
+            <input type="hidden" name="datebirth" id="datebirth"/>
+            <!-- <div class="form-group row col-md-12">
+                <input type="checkbox" class="form-check-input" id="exampleCheck1">
+                <label class="form-check-label" for="exampleCheck1">Check me out</label>
+            </div> -->
+            <div class="form-check row form-check-inline col-md-12">
+                <div class="col-sm-2">
+                    <input class="form-check-input" type="radio" id="inlineRadio1" name="gender" value="male">
+                    <label class="form-check-label" for="inlineRadio1">Male</label>
+                </div>
+                <div class="col-sm-2">
+                    <input class="form-check-input" type="radio" id="inlineRadio2" name="gender" value="female">
+                    <label class="form-check-label" for="inlineRadio2">Female</label>
+                </div>
+            </div>
+            <div class="row col-md-12">
+                <span></span><br>
+                <div class="form-group">
+                    <!-- <span>email</span><br> -->
+                    <input type="email" class="form-control" id="email" name="email" aria-describedby="emailHelp" placeholder="Email" required oninvalid="this.setCustomValidity('Please enter email address')" oninput="setCustomValidity('')">
+                </div>
+                <span></span><br>
+            </div>
+            <!-- <button type="submit" class="btn btn-primary">Register</button> -->
+            <!-- <button type="submit" class="btn btn-purple btn-lg btn-block">Register</button> -->
+            <input type="submit" id="send" name="send" value="Submit" class="btn btn-purple btn-lg btn-block"/>
+            <!-- <button type="submit" id="send" name="send" value="Submit" class="btn btn-primary">Register</button> -->
+            <!-- <input type="submit" name="submit_form" value="Submit"> -->
+        </form>
+        <div class="result">
+        </div>
+        <p id="success_para"></p>
+        <!-- <button type="button" id="a" style="display:none;" value="A" class="btn btn-purple btn-lg btn-block">Login</button> -->
+        <a href="/viewLogin"><button type="button" id="a" style="display:none;" value="A" class="btn btn-purple btn-lg btn-block">Login</button></a>
+    </div>
+
+    <section class="">
+        <!-- Footer -->
+        <footer class="bg-secondary text-white text-center text-md-start">
+        <br>
+          <!-- Copyright -->
+          <div class="text-center p-3" style="background-color: rgba(204, 8, 230, 0.2);">
+            © 2020 Copyright:
+            <a class="text-white" href="FOOTER">Footer</a>
+          </div>
+          <!-- Copyright -->
+        </footer>
+        <!-- Footer -->
+      </section>
+
+</body>
+</html>
