@@ -62,3 +62,14 @@ This repo is used as a part of a mitrais backend test, Used Fastapi and pydantic
             INFO  [alembic.runtime.migration] Context impl MySQLImpl.
             INFO  [alembic.runtime.migration] Will assume transactional DDL.
             INFO  [alembic.runtime.migration] Running upgrade  -> version, version_command
+            
+## Screenshot 
+        - Registration
+            ![Image of Register view]
+            (https://github.com/4happycode/mitrais_test/blob/main/register_view.jpeg)
+        
+        - Registration after submiting form
+            ![Image of Register view]
+            (https://github.com/4happycode/mitrais_test/blob/main/register_view_after_submiting.jpeg)
+
+
