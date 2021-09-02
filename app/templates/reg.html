@@ -197,155 +197,7 @@
 
         });
     </script>
-    <!-- <script>
-        $(document).ready(function(){
-            $("#submitBtn").click(function(){   
-
-                var thisyear = $('#year').val(); // Modify me
-                var thismonth = $('#month').val(); // Modify me
-                var thisday = $('#date').val(); // Modify me
-                var dateofbirth = thisyear + '-' + thismonth + '-' + thisday;
-                // var dateofbirth = thismonth + thisday + thisyear;
-                $('input[name="datebirth"]').val(dateofbirth);
-
-                $('input[name="month"]').remove();
-                $('input[name="year"]').remove();
-                $('input[name="day"]').remove();
-
-
-                $("#myForm").valid(); 
-                // $("#myForm").serialize().submit(); // Submit the form
-                $("#myForm").submit(
-                    // function(e){
-                    //     e.preventDefault();
-                    //     $year = $('#year');
-                    //     $year.remove();
-                    // }
-                ); // Submit the form
-
-                // url = $form.attr( "action" );
-                // da = {'email':'on'}
-                // Data: JSON.stringify({ 'email': 'on' }),
-                // console.log(da)
-                // $.ajax('http://localhost:8000/regist', {
-                //     data: {'email':'on'},
-                //     contentType : 'application/json',
-                //     DataType: "json",
-                //     type : 'POST',
-                // });
-            });
-        });
-    </script> -->
-
-    <!-- <script>
-        function onSubmit( form ){
-        console.log( data );
-        // var data = JSON.stringify( $(form).serializeArray() ); //  <-----------
-        // url = $form.attr( "action" );
-        $.ajax('http://localhost:8000/regist', {
-            Data: JSON.stringify({ 'email': 'on' }),
-            // data:{
-            // 'email': 'title',
-            // },
-            // body:{
-            // 'email': 'title',
-            // },
-            // data: {'email':'1111111111111'},
-            // contentType : 'application/json',
-            DataType: "json",
-            type : 'POST',
-        });
-
-        console.log( data );
-        return false; //don't submit
-        }
-    </script> -->
-
-    <!-- <script>
-        // Attach a submit handler to the form
-        $( "#submitBtn" ).submit(function( event ) {
-         
-          // Stop form from submitting normally
-          event.preventDefault();
-         
-          // Get some values from elements on the page:
-          var $form = $( this ),
-            term = $form.find( "input[name='phone']" ).val(),
-            url = $form.attr( "action" );
-         
-          // Send the data using post
-          var posting = $.post( url, { s: term } );
-         
-          // Put the results in a div
-        //   posting.done(function( data ) {
-        //     var content = $( data ).find( "#content" );
-        //     $( "#result" ).empty().append( content );
-        //   });
-        console.log( posting );
-        console.log( term );
-        console.log( url );
-        });
-        </script> -->
-    
-    <!-- <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
-    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" rel="stylesheet" />
-    <script>
-        $(document).ready(function () {
-            $('btn btn-purple btn-lg btn-block').click(function (e) {
-            e.preventDefault();
-            // var name = $('#name').val();
-            var email = $('#email').val();
-            // var message = $('#message').val();
-            console.log(email);
-            console.log("email----");
-            $.ajax
-                ({
-                type: "POST",
-                url: "/regist",
-                data: { "email": email},
-                success: function (result) {
-
-                    // $('.result').html(data);
-                    // $('#contactform')[0].reset();
-                }
-                });
-            });
-        });
-    </script> -->
-    <!-- <script>
-        $(document).ready(function(){
-		$('#send').click(function(){
-            // $("#myForm").valid(); 
-			// event.preventDefault();
-            var email=$('#email').val();
-            var firstname=$('#firstname').val();
-            var lastname=$('#lastname').val();
-            var phone=$('#phone').val();
-
-            'use strict'
-
-            // Fetch all the forms we want to apply custom Bootstrap validation styles to
-            var forms = document.querySelectorAll('.needs-validation')
-            console.log('=======================')
-            console.log(forms)
-
-            // Loop over them and prevent submission
-            Array.prototype.slice.call(forms)
-                .forEach(function (form) {
-                form.addEventListener('submit', function (event) {
-                    if (!form.checkValidity()) {
-                    event.preventDefault()
-                    event.stopPropagation()
-                    console.log('000000000000000')
-                    }
-
-                    form.classList.add('was-validated')
-                }, false)
-                })
-
-		});
-	});
-    </script> -->
+	
     <!-- <script src="http://code.jquery.com/jquery-latest.js"></script>
     <script src="//ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"> </script> -->
     <script src="http://ajax.aspnetcdn.com/ajax/jquery.validate/1.11.1/jquery.validate.min.js"></script>
@@ -383,12 +235,9 @@
                     },
 
                 );
-                console.log(')()()()()')
-                console.log(email_checked)
                  
                 // your logic here
-                console.log('_---__-----__---');
-                console.log('999999999999999999999');
+                
                 if ($('input[name="phone"]').validate()) {
                     console.log('masuk if');
                     var phones = $("#phone").val();
@@ -453,28 +302,6 @@
         $(document).ready(function(){
             // $("#email").keydown(function(){
             $("#email").change(function(){
-
-                var email_checked = $("#myForm").validate(
-                    {
-                        errorClass: "error fail-alert",
-                        validClass: "valid success-alert",
-                        rules: {
-                            email : {
-                                required: true,
-                                number:true,
-                                pattern: /^[0][8][0-9]{6}[0-9]{3,5}$/,
-                            },
-                        },
-                        messages : {
-                            email: {
-                                required:"Please enter valid indonesian phone number",
-                                number: "Please enter your phone number as a numerical value",
-                                pattern: "Please enter valid indonesian phone number starts with 08xxxxxx"
-                            },
-                        }
-                    },
-
-                );
                  
                 // your logic here
                 if ($('input[name="email"]').validate()) {
@@ -616,50 +443,10 @@
                 });
             }
 
-			// $.ajax({
-			//     type: "POST",
-			//     url: "/regist",
-			//     // data: { email:email, firstname:firstname, lastname:lastname, phone:phone},	
-            //     data: JSON.stringify({ email:email, firstname:firstname, lastname:lastname, phone:phone}),
-			//     dataType: "json",
-            //     contentType : 'application/json',
-			//     success: function(result){
-			//         			    }
-			// });
+			
 		});
 	});
     </script>
-
-    <!-- <script type="text/javascript">
-
-        function submitdata()
-        {
-         var name=document.getElementById( "email" );
-         var firstname=document.getElementById( "firstname" );
-         var lastname=document.getElementById( "lastname" );
-         var phone=document.getElementById( "phone" );
-        //  var course=document.getElementById( "course_of_user" );
-        console.log(phone);
-        
-         $.ajax({
-          type: 'post',
-        //   url: 'http://localhost:8000/regist',
-          url: 'regist',
-          data: {
-           email:email,
-           lastname:lastname,
-           firstname:firstname,
-           phone:phone
-          },
-          success: function (response) {
-           $('#success__para').html("You data will be saved");
-          }
-         });
-            
-         return false;
-        }
-        
-        </script> -->
         
 </head>
 <body>
